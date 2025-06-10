@@ -13,7 +13,7 @@ app.use(express.json());
 app.get('/', async (req, res) => {
     try {
         
-        res.json('WELCOME TO HOTEL MANGEMENT SYSTEM');
+        res.json('HOTEL MANGEMENT SYSTEM');
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ Error: err.message });
@@ -28,6 +28,26 @@ app.get('/customer', async (req,res) => {
     {
         res.status(500).json({Error:err.message});
     }
+});
+
+app.post('/customer', async (req, res) => {
+  try {
+    const { name, email, phone, id_proof } = req.body;
+
+    if (!name || !email || !phone || !id_proof) {
+      return res.status(400).json({ error: 'Please fill all required fields' });
+    }
+
+    const insertQuery = `
+      INSERT INTO Customer (name, email, phone, id_proof)
+      VALUES ($1, $2, $3, $4) RETURNING *`;
+    const values = [name, email, phone, id_proof];
+
+    const result = await pool.query(insertQuery, values);
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ Error: err.message });
+  }
 });
 
 app.get('/room', async (req, res) => {
