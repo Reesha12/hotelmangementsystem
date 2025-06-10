@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Invoice Records</h1>
+
+    <table id="invoicetable">
+        <thead>
+            <tr>
+                <th>Invoice ID</th>
+                <th>Booking ID</th>
+                <th>Total Amount</th>
+                <th>Issue Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script src="script/invoice.js"></script>
+        </tbody>
+    </table>
+
+    

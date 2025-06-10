@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Records</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 15px;
+        }
+
+        th {
+            background-color: #17a2b8;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Booking Records</h1>
+        <table id="bookingtable">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Customer ID</th>
+                    <th>Room ID</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Booking Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <script src="script/booking.js"></script>
+            </tbody>
+        </table>
+    </div>
+
+   
