@@ -1,57 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Invoice List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
+  <meta charset="UTF-8" />
+  <title>Invoice Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-        }
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      padding: 40px 20px;
+    }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
+    h1 {
+      text-align: center;
+      color: #0d6efd;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
 
-        th {
-            background-color: #2196F3;
-            color: white;
-        }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
+    .btn-info {
+      background-color: #0dcaf0;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-info:hover {
+      background-color: #0bb7da;
+    }
+
+    table {
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: #0dcaf0;
+      color: white;
+      text-align: center;
+    }
+
+    td, th {
+      padding: 14px 16px;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    tr:hover {
+      background-color: #f1f9ff;
+    }
+
+    /* Modal style */
+    .modal-content {
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #0dcaf0, #0a95b5);
+      color: white;
+      border-bottom: none;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-footer .btn-primary {
+      background-color: #0dcaf0;
+      border-color: #0dcaf0;
+    }
+
+    .modal-footer .btn-primary:hover {
+      background-color: #0bb7da;
+    }
+
+    .modal-footer .btn-secondary {
+      color: #0dcaf0;
+      border-color: #0dcaf0;
+      background-color: transparent;
+    }
+
+    .modal-footer .btn-secondary:hover {
+      background-color: #0dcaf0;
+      color: white;
+    }
+
+    #addInvoiceForm input {
+      border-radius: 0.5rem;
+      border: 2px solid #0dcaf0;
+    }
+
+    #addInvoiceForm input:focus {
+      box-shadow: 0 0 5px rgba(13, 202, 240, 0.5);
+      border-color: #0a95b5;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Invoice Records</h1>
+  <div class="container">
+    <h1>Invoice Directory</h1>
 
-    <table id="invoicetable">
-        <thead>
-            <tr>
-                <th>Invoice ID</th>
-                <th>Booking ID</th>
-                <th>Total Amount</th>
-                <th>Issue Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <script src="Script/invoice.js"></script>
-        </tbody>
+    <div class="d-flex justify-content-end mb-3">
+      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addInvoiceModal">
+        + Add Invoice
+      </button>
+    </div>
+
+    <table id="invoicetable" class="table table-striped table-hover text-center">
+      <thead>
+        <tr>
+          <th>Invoice ID</th>
+          <th>Booking ID</th>
+          <th>Total Amount</th>
+          <th>Issue Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>INV001</td>
+          <td>BK1001</td>
+          <td>$250.00</td>
+          <td>2025-06-05</td>
+        </tr>
+        <tr>
+          <td>INV002</td>
+          <td>BK1005</td>
+          <td>$150.50</td>
+          <td>2025-06-07</td>
+        </tr>
+        <tr>
+          <td>INV003</td>
+          <td>BK1010</td>
+          <td>$320.75</td>
+          <td>2025-06-10</td>
+        </tr>
+      </tbody>
     </table>
+  </div>
 
-    
+  <!-- Invoice Modal -->
+  <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="addInvoiceForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addInvoiceModalLabel">Add New Invoice</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="invoice_id" class="form-label">Invoice ID</label>
+            <input type="text" class="form-control" id="invoice_id" placeholder="e.g., INV004" required />
+          </div>
+          <div class="mb-3">
+            <label for="booking_id" class="form-label">Booking ID</label>
+            <input type="text" class="form-control" id="booking_id" placeholder="e.g., BK1011" required />
+          </div>
+          <div class="mb-3">
+            <label for="total_amount" class="form-label">Total Amount</label>
+            <input type="number" step="0.01" class="form-control" id="total_amount" placeholder="e.g., 199.99" required />
+          </div>
+          <div class="mb-3">
+            <label for="issue_date" class="form-label">Issue Date</label>
+            <input type="date" class="form-control" id="issue_date" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveInvoiceBtn">Save Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="Script/invoice.js"></script>
+
+</body>
+</html>

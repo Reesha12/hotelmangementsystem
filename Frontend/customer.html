@@ -1,69 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Customer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #eef3f8;
-            margin: 0;
-            padding: 20px;
-        }
+  <meta charset="UTF-8" />
+  <title>Customer Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #faf9f0;
+      margin: 0;
+      padding: 20px;
+    }
 
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-        th {
-            background-color: #28a745;
-            color: white;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-        tr:hover {
-            background-color: #f1f1f1;
-        }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-    </style>
+    th {
+      background-color: #28a745;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .btn {
+      margin-top: 20px;
+    }
+
+    /* Modal header with gradient and white text */
+    .modal-header {
+      background: linear-gradient(45deg, #28a745, #218838);
+      color: white;
+      border-bottom: none;
+      border-top-left-radius: 0.3rem;
+      border-top-right-radius: 0.3rem;
+    }
+
+    /* Close button color in modal header */
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    /* Input fields with rounded corners and border color */
+    #addCustomerForm input.form-control {
+      border: 2px solid #28a745;
+      border-radius: 0.4rem;
+      transition: border-color 0.3s ease;
+    }
+
+    /* Input focus with shadow and green outline */
+    #addCustomerForm input.form-control:focus {
+      border-color: #218838;
+      box-shadow: 0 0 5px 2px rgba(40, 167, 69, 0.5);
+    }
+
+    /* Labels with bold and greenish color */
+    #addCustomerForm label.form-label {
+      font-weight: 600;
+      color: #155724;
+    }
+
+    /* Modal footer buttons styling */
+    .modal-footer .btn-primary {
+      background-color: #28a745;
+      border-color: #28a745;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal-footer .btn-primary:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+
+    .modal-footer .btn-secondary {
+      color: #28a745;
+      border-color: #28a745;
+      background-color: transparent;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .modal-footer .btn-secondary:hover {
+
+
+
+
+
+      
+      background-color: #28a745;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Customer Directory</h1>
-        <table id="customertable">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>ID Proof</th>
-                </tr>
-            </thead>
-            <tbody>
-            <script src="Script/customer.js"></script>   
-            </tbody>
-        </table>
-    </div>
+  <div class="container">
+    <h1>Customer Directory</h1>
 
-    
+    <!-- Button to open modal -->
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+      Add New Customer
+    </button>
+
+    <!-- Table to display customer data -->
+    <table id="customertable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>ID Proof</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal for adding customer -->
+  <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="addCustomerForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCustomerModalLabel">Add New Customer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Customer ID removed because backend auto-generates it -->
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" required />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" required />
+          </div>
+          <div class="mb-3">
+            <label for="idProof" class="form-label">ID Proof</label>
+            <input type="text" class="form-control" id="idProof" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveCustomerBtn">Save Customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Your custom JS -->
+  <script src="Script/customer.js"></script>
+
+</body>
+</html>

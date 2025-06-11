@@ -1,54 +1,180 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Room List</title>
+  <title>Room Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
       padding: 20px;
-      background-color: #f9f9f9;
     }
+
     h1 {
       text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .btn {
       margin-bottom: 20px;
     }
+
+    .btn-primary {
+      background-color: #20c997;
+      border-color: #20c997;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #17a589;
+      border-color: #17a589;
+    }
+
     table {
       width: 100%;
-      border-collapse: collapse;
-      background-color: #fff;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 0.5rem;
+      overflow: hidden;
     }
+
     th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
+      padding: 14px 18px;
+      text-align: left;
     }
+
     th {
-      background-color: #673ab7;
+      background-color: #20c997;
       color: white;
+      font-weight: 600;
     }
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .modal-header {
+      background: linear-gradient(45deg, #20c997, #138d75);
+      color: white;
+      border-bottom: none;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    #addRoomForm input.form-control {
+      border: 2px solid #20c997;
+      border-radius: 0.4rem;
+      transition: border-color 0.3s ease;
+    }
+
+    #addRoomForm input.form-control:focus {
+      border-color: #138d75;
+      box-shadow: 0 0 5px 2px rgba(32, 201, 151, 0.5);
+    }
+
+    #addRoomForm label.form-label {
+      font-weight: 600;
+      color: #138d75;
+    }
+
+    .modal-footer .btn-primary {
+      background-color: #20c997;
+      border-color: #20c997;
+    }
+
+    .modal-footer .btn-primary:hover {
+      background-color: #17a589;
+      border-color: #138d75;
+    }
+
+    .modal-footer .btn-secondary {
+      color: #20c997;
+      border-color: #20c997;
+      background-color: transparent;
+    }
+
+    .modal-footer .btn-secondary:hover {
+      background-color: #20c997;
+      color: white;
     }
   </style>
 </head>
 <body>
 
-  <h1>Room List</h1>
+  <div class="container">
+    <h1>Room Directory</h1>
 
-  <table id="roomtable">
-    <thead>
-      <tr>
-        <th>Room ID</th>
-        <th>Room Number</th>
-        <th>Room Type</th>
-        <th>Price per Night</th>
-        <th>Availability Status</th>
-      </tr>
-    </thead>
-    <tbody>
-     <script src="Script/room.js"></script>
-    </tbody>
-  </table>
+    <!-- Button to open modal -->
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
+      Add New Room
+    </button>
 
-  
+    <!-- Table to display room data -->
+    <table id="roomtable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Room ID</th>
+          <th>Room Number</th>
+          <th>Room Type</th>
+          <th>Price Per Night</th>
+          <th>Availability Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal for adding room -->
+  <div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="addRoomForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRoomModalLabel">Add New Room</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="roomNumber" class="form-label">Room Number</label>
+            <input type="text" class="form-control" id="roomNumber" required />
+          </div>
+          <div class="mb-3">
+            <label for="roomType" class="form-label">Room Type</label>
+            <input type="text" class="form-control" id="roomType" required />
+          </div>
+          <div class="mb-3">
+            <label for="pricePerNight" class="form-label">Price Per Night</label>
+            <input type="number" step="0.01" class="form-control" id="pricePerNight" required />
+          </div>
+          <div class="mb-3">
+            <label for="availabilityStatus" class="form-label">Availability Status</label>
+            <input type="text" class="form-control" id="availabilityStatus" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveRoomBtn">Save Room</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="Script/room.js"></script>
+
+</body>
+</html>
